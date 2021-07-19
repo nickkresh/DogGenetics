@@ -1,124 +1,44 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class DogGenetics {
 
     public static void main(String[] args) {
-        startGame();
+        startDogGenetics();
     }
 
-    public static void startGame() {
-        int ties = 0;
-        int loses = 0;
-        int wins = 0;
-
+    public static void startDogGenetics() {
         Scanner myObj = new Scanner (System.in);
-        System.out.println("How many rounds would you like to play?");
-        int rounds = myObj.nextInt();
-        if(rounds > 10 || rounds < 1) {
-            System.out.println("Error");
-            System.exit(101);
-        }
+        System.out.println("What is your dog's name?");
+        String dogName = myObj.next();
+        generateDNABackgroundReport(dogName);
+    }
 
-        for (int i = 0; i < rounds; i++) {
-            System.out.println("Chose paper, rock, or scissors");
-            System.out.println("1=Rock, 2=Paper, 3=Scissors");
-            System.out.println("1,2,3");
-            Random random = new Random();
-            // A number between 1 and 3
-            int max = 3;
-            int min = 1;
-
-            int computerChoice = random.nextInt(max - min + 1) + min;
-
-            int choice = myObj.nextInt();
-
-            switch (choice) {
-                // rock
-                case 1:
-                    if (computerChoice == 1) {
-                        System.out.println("tie");
-                        ties++;
-                    }
-
-                    if (computerChoice == 2) {
-                        System.out.println("lose");
-                        loses++;
-                    }
-
-                    if (computerChoice == 3) {
-                        System.out.println("win");
-                        wins++;
-                    }
-                    break;
-                // paper
-                case 2:
-                    if (computerChoice == 1) {
-                        System.out.println("win");
-                        wins++;
-                    }
-
-                    if (computerChoice == 2) {
-                        System.out.println("tie");
-                        ties++;
-                    }
-
-                    if (computerChoice == 3) {
-                        System.out.println("lose");
-                        loses++;
-                    }
-                    break;
-                // sc
-                case 3:
-                    if (computerChoice == 1) {
-                        System.out.println("lose");
-                        loses++;
-                    }
-
-                    if (computerChoice == 2) {
-                        System.out.println("win");
-                        wins++;
-                    }
-
-                    if (computerChoice == 3) {
-                        System.out.println("tie");
-                        ties++;
-                    }
-                    break;
-            }
-        }
-
-        System.out.println("Score:");
-        System.out.println("Wins: " + wins);
-        System.out.println("Loses: " + loses);
-        System.out.println("Ties: " + ties);
-
-        if (wins > loses) {
-            System.out.println("You won");
-        } else {
-            if (ties == rounds || wins == loses) {
-                System.out.println("You tied");
+    public static void generateDNABackgroundReport(String dogName) {
+        System.out.println("\nWell then, I have this highly reliable report on " + dogName + "'s prestigious background right here.");
+        System.out.println(dogName + " is:\n");
+        Random r = new Random();
+        ArrayList<Integer> load = new ArrayList<Integer>();
+        String[] dogBreeds = {"King Doberman", "Common Cur", "Chihuahua", "St. Bernard", "Dramatic RedNosed Asian Pug"};
+        int temp = 0;
+        int sum = 0;
+        for (int i = 1; i <= 5; i++) {
+            if (!(i == 5)) {
+                temp = r.nextInt((100 - sum) / (5 - i)) + 1;
+                System.out.println(temp + "% " + dogBreeds[i - 1]);
+                load.add(temp);
+                sum += temp;
             } else {
-                System.out.println("You lost");
+                int last = (100 - sum);
+                load.add(last);
+                sum += last;
+                System.out.println(last + "% " + dogBreeds[i - 1]);
             }
         }
 
-        System.out.println("Thanks for playing, would you like to play again?");
-        System.out.println("Yes/No");
-        String choice = myObj.next();
-        if (choice.equalsIgnoreCase("Yes")) {
-            // start over
-            startGame();
-        } else if (choice.equalsIgnoreCase("No")) {
-            // exit
-            System.out.println("Goodbye");
-            System.exit(0);
-        } else {
-            // error
-            System.out.println("Error");
-            System.exit(101);
-        }
+        System.out.println("\nWow, that's QUITE the dog!");
     }
 }
